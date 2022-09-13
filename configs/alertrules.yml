@@ -1,0 +1,17 @@
+groups:
+  - name: all
+    rules:
+    - alert: BlackboxScrapingSiteIsDown
+      expr: probe_success == 0
+      for: 10s
+      labels:
+        severity: "critical"
+      annotations:
+        summary: 'Endpoint {{ $labels.instance }} down'
+    - alert: PrometheusTargetDown
+      expr: up == 0
+      for: 10s
+      labels:
+        severity: "critical"
+      annotations:
+        summary: '{{ $value }}% of the {{ $labels.job }} targets are down.'
