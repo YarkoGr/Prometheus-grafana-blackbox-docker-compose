@@ -15,3 +15,10 @@ groups:
         severity: "critical"
       annotations:
         summary: '{{ $value }}% of the {{ $labels.job }} targets are down.'
+    - alert: ProbeDurationSeconds
+      expr: avg_over_time(probe_duration_seconds[1m]) > 2
+      for: 1m
+      labels:
+        severity: "warning"
+      annotations:
+        summary: 'ProbeDurationSeconds more than 2 sec {{ $labels.instance }}'
